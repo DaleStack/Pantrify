@@ -1,0 +1,18 @@
+{% extends "chat/base.html" %}
+
+{% block content %}
+
+<form method="POST">
+  {% csrf_token %}
+  <textarea class="rounded-2xl" name="ingredients" rows="5" cols="40" placeholder="Enter ingredients..."></textarea>
+  <button type="submit">Generate Recipe</button>
+</form>
+
+{% if recipe %}
+  <h2 class="text-2xl">Generated Recipe</h2>
+  <p class="font-bold">{{ recipe|linebreaksbr|safe }}</p>
+{% elif error %}
+  <p style="color: red;">{{ error }}</p>
+{% endif %}
+
+{% endblock %}
