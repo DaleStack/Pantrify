@@ -1,11 +1,84 @@
 {% load static %}
+<style>
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .spin {
+    animation: spin 1s linear infinite;
+  }
+
+  .typewriter::after {
+    content: '|';
+    animation: blink 0.7s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+    @-webkit-keyframes slide-in-blurred-bottom {
+  0% {
+    -webkit-transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+            transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-filter: blur(40px);
+            filter: blur(40px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+            transform: translateY(0) scaleY(1) scaleX(1);
+    -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+    -webkit-filter: blur(0);
+            filter: blur(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-blurred-bottom {
+  0% {
+    -webkit-transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+            transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-filter: blur(40px);
+            filter: blur(40px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+            transform: translateY(0) scaleY(1) scaleX(1);
+    -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+    -webkit-filter: blur(0);
+            filter: blur(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-blurred-bottom {
+	-webkit-animation: slide-in-blurred-bottom 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+	        animation: slide-in-blurred-bottom 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+}
+</style>
+
 <div class="h-screen flex flex-col justify-end">
-  <div class="w-full fixed bottom-0 py-4 px-2 lg:px-80 z-50">
+  <div class="w-full fixed bottom-0 py-4 px-2 lg:px-80 z-50 slide-in-blurred-bottom">
+    <div id="statusMessage" class="text-center text-gray-600 font-medium pb-2 hidden"></div>
+
     <form method="POST" class="flex gap-2 items-center border border-black/30 rounded-full justify-between px-2 py-2 shadow-md bg-white">
       {% csrf_token %}
       <textarea id="ingredientsInput" class="rounded-2xl p-2 overflow-y-auto h-12 focus:outline-none w-full resize-none max-h-40" name="ingredients" rows="5" cols="40" placeholder="Enter ingredients..."></textarea>
-      <button id="submitButton" type="submit" class="rounded-full bg-black text-white px-2 py-2 disabled:bg-gray-400"><img src="{% static 'chat/images/send.svg' %}" alt="send"></button>
+      <button id="submitButton" type="submit" class="rounded-full bg-black text-white px-2 py-2 disabled:bg-gray-400" disabled>
+        <img id="sendIcon" src="{% static 'chat/images/send.svg' %}" alt="send">
+        <img id="loadingIcon" class="hidden spin" src="{% static 'chat/images/loading.svg' %}" alt="loading">
+      </button>
     </form>
+
     {% if error %}
     <p style="color: red;">{{ error }}</p>
     {% endif %}
@@ -13,15 +86,45 @@
 </div>
 
 <script>
-    const textarea = document.getElementById("ingredientsInput");
+  const textarea = document.getElementById("ingredientsInput");
   const button = document.getElementById("submitButton");
+  const sendIcon = document.getElementById("sendIcon");
+  const loadingIcon = document.getElementById("loadingIcon");
+  const statusMessage = document.getElementById("statusMessage");
 
+  // Enable/disable submit button based on input
   textarea.addEventListener("input", () => {
     button.disabled = textarea.value.trim() === "";
   });
 
-  // Trigger check on load in case of autofill
+  // Initial check on page load
   window.addEventListener("DOMContentLoaded", () => {
     button.disabled = textarea.value.trim() === "";
+  });
+
+  function typeWriterEffect(text, element, speed = 50) {
+    let index = 0;
+    if (!element.classList.contains("typewriter")) {
+      element.classList.add("typewriter");
+    }
+    element.textContent = "";
+
+    const typing = setInterval(() => {
+      element.textContent += text.charAt(index);
+      index++;
+      if (index === text.length) {
+        clearInterval(typing);
+      }
+    }, speed);
+  }
+
+  // On form submit
+  const form = button.closest("form");
+  form.addEventListener("submit", () => {
+    button.disabled = true;
+    sendIcon.classList.add("hidden");
+    loadingIcon.classList.remove("hidden");
+    statusMessage.classList.remove("hidden");
+    typeWriterEffect("Generating Recipe. Please Wait.", statusMessage);
   });
 </script>
