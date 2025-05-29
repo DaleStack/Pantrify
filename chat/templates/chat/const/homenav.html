@@ -25,15 +25,14 @@
     </button>
     <div id="dropdownMenu" class="ch-dropdown ch-dropdown-end hidden mt-4">
       <div>
-        <a href="{% url 'generate_recipe' %}" class="ch-dropdown-item">Reset Chat</a>
-        <a href="{% url 'home_view' %}" class="ch-dropdown-item">Home</a>
+        <a href="{% url 'generate_recipe' %}" class="ch-dropdown-item">Start Cooking</a>
       </div>
     </div>
   </div>
 
-  <a class="hidden lg:flex lg:items-center px-4 py-2 rounded-2xl border border-black/30 hover:-translate-y-1 hover:shadow duration-300 space-x-1" href="{% url 'generate_recipe' %}">
-    <img class="w-4 h-4" src="{% static 'chat/images/reset.svg' %}" alt="reset">
-    <p>Reset Chat</p>
+  <a class="hidden lg:flex lg:items-center px-4 py-2 rounded-2xl border border-black/30 hover:-translate-y-1 hover:shadow duration-300 space-x-1 bg-black text-white" href="{% url 'generate_recipe' %}">
+    <img class="w-4 h-4" src="{% static 'chat/images/hat.svg' %}" alt="reset">
+    <p>Start Cooking</p>
   </a>
 </nav>
 

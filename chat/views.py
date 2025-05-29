@@ -46,3 +46,6 @@ def recipe(request):
             })
 
     return render(request, "chat/recipe.html")
+
+def home_view(request):
+    return render(request, 'chat/home.html')
