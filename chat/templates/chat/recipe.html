@@ -2,17 +2,21 @@
 
 {% block content %}
 
-<form method="POST">
-  {% csrf_token %}
-  <textarea class="rounded-2xl" name="ingredients" rows="5" cols="40" placeholder="Enter ingredients..."></textarea>
-  <button type="submit">Generate Recipe</button>
-</form>
+<div class="px-2 lg:px-80" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
+  <div class="bg-gray-100 w-70 p-4 rounded-2xl">
+    <p class="text-black/50">Pantrify AI</p>
+    <p class="w-full">Hello! Tell me what ingredients you have and I'll help you create something delicious!</p>
+  </div>
+  
+  {% if recipe %}
+    <div class="bg-gray-100 lg:w-120 p-4 rounded-2xl my-2">
+      <p class="text-black/50">Pantrify AI</p>
+      <h2 class="text-xl lg:text-2xl font-bold mb-2">Generated Recipe from the Ingredients</h2>
+      <p class="font-semibold">{{ recipe|linebreaksbr|safe }}</p>
+    </div>
+  {% endif %}
+</div>
 
-{% if recipe %}
-  <h2 class="text-2xl">Generated Recipe</h2>
-  <p class="font-bold">{{ recipe|linebreaksbr|safe }}</p>
-{% elif error %}
-  <p style="color: red;">{{ error }}</p>
-{% endif %}
+{% include "chat/const/form.html" %}
 
 {% endblock %}

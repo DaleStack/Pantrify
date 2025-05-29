@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 /**
   * A catch-all path to Django template files, JavaScript, and Python files
   * that contain Tailwind CSS classes and will be scanned by Tailwind to generate the final CSS file.
@@ -8,3 +8,19 @@
   * the scope of this path.
   */
 @source "../../../**/*.{html,py,js}";
+
+@layer components {
+.ch-dropdown {
+  @apply w-40 bg-white border p-2 border-gray-200 shadow-md absolute z-10 rounded-2xl;
+}
+
+.ch-dropdown-item {
+  @apply block px-4 py-2 text-sm text-black hover:bg-gray-200 cursor-pointer;
+}
+
+.ch-dropdown-end {
+  @apply right-0 top-full mt-2;
+}
+
+
+}

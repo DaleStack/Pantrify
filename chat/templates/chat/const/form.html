@@ -1,0 +1,13 @@
+{% load static %}
+<div class="h-screen flex flex-col justify-end">
+  <div class="w-full fixed bottom-0 py-4 px-2 lg:px-80 z-50">
+    <form method="POST" class="flex gap-2 items-center border border-black/30 rounded-full justify-between px-2 py-2 shadow-md bg-white">
+      {% csrf_token %}
+      <textarea class="rounded-2xl p-2 overflow-y-auto h-12 focus:outline-none w-full resize-none max-h-40" name="ingredients" rows="5" cols="40" placeholder="Enter ingredients..."></textarea>
+      <button type="submit" class="rounded-full bg-black text-white px-2 py-2 "><img src="{% static 'chat/images/send.svg' %}" alt="send"></button>
+    </form>
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+  </div>
+</div>

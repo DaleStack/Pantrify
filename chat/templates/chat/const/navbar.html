@@ -1,0 +1,62 @@
+{% load static %}
+<style>
+  .rotate-180 {
+    transform: rotate(45deg);
+  }
+
+  .transition-transform {
+    transition: transform 0.3s ease;
+  }
+</style>
+
+<nav class="py-4 px-2 lg:px-40 flex items-center justify-between sticky top-0 z-10 bg-white" style="font-family: 'Poppins', sans-serif; font-weight: 400;">
+  <div class="flex items-center">
+    <img class="w-8 h-8 lg:w-10 lg:h-10" src="{% static 'chat/images/pantrify-logo.png' %}" alt="">
+    <p class="text-xl lg:text-2xl" style="font-family: 'Bodoni Moda', serif; font-optical-sizing: auto; font-weight: 900;">Pantrify</p>
+  </div>
+
+  
+
+  <div class="relative inline-block lg:hidden">
+    <button onclick="toggleDropdown()" class="ch-btn">
+      <img id="dropdownIcon" class="transition-transform" src="{% static 'chat/images/dropdown.svg' %}" alt="Dropdown">
+    </button>
+    <div id="dropdownMenu" class="ch-dropdown ch-dropdown-end hidden mt-4">
+      <div>
+        <a href="{% url 'generate_recipe' %}" class="ch-dropdown-item">Reset Chat</a>
+        <a href="#" class="ch-dropdown-item">Home</a>
+      </div>
+    </div>
+  </div>
+
+  <a class="hidden lg:flex lg:items-center px-4 py-2 rounded-2xl border border-black/30 hover:-translate-y-1 hover:shadow duration-300 space-x-1" href="{% url 'generate_recipe' %}">
+    <img class="w-4 h-4" src="{% static 'chat/images/reset.svg' %}" alt="reset">
+    <p>Reset Chat</p>
+  </a>
+</nav>
+
+<script>
+  function toggleDropdown() {
+    const menu = document.getElementById("dropdownMenu");
+    const icon = document.getElementById("dropdownIcon");
+
+    const isHidden = menu.classList.contains("hidden");
+
+    menu.classList.toggle("hidden");
+    icon.classList.toggle("rotate-180", isHidden); // rotate only when showing
+  }
+
+  // Optional: Hide dropdown and reset rotation when clicking outside
+  document.addEventListener("click", function (e) {
+    const menu = document.getElementById("dropdownMenu");
+    const button = e.target.closest("button");
+    const icon = document.getElementById("dropdownIcon");
+
+    if (!e.target.closest("#dropdownMenu") && !button) {
+      if (!menu.classList.contains("hidden")) {
+        menu.classList.add("hidden");
+        icon.classList.remove("rotate-180");
+      }
+    }
+  });
+</script>
