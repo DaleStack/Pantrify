@@ -9,8 +9,97 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		{% tailwind_css %}
 	</head>
+    <style>
+        #background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 80vh;
+    object-fit: cover; /* Ensures the video covers the entire background */
+    z-index: -1; /* Push the video behind other content */
+}
+
+@-webkit-keyframes heartbeat {
+  from {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: center center;
+            transform-origin: center center;
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  10% {
+    -webkit-transform: scale(0.91);
+            transform: scale(0.91);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  17% {
+    -webkit-transform: scale(0.98);
+            transform: scale(0.98);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  33% {
+    -webkit-transform: scale(0.87);
+            transform: scale(0.87);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  45% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+}
+@keyframes heartbeat {
+  from {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: center center;
+            transform-origin: center center;
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  10% {
+    -webkit-transform: scale(0.91);
+            transform: scale(0.91);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  17% {
+    -webkit-transform: scale(0.98);
+            transform: scale(0.98);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  33% {
+    -webkit-transform: scale(0.87);
+            transform: scale(0.87);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  45% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+}
+
+.heartbeat {
+	-webkit-animation: heartbeat 1.5s ease-in-out infinite both;
+	        animation: heartbeat 1.5s ease-in-out infinite both;
+}
+    </style>
 
 	<body>
+        <video autoplay muted loop id="background-video">
+            <source src="{% static 'chat/videos/animated-bg.mp4' %}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
 		<div class="">
 			{% include 'chat/const/homenav.html' %}
             <!--FIRST SECTION-->
@@ -25,7 +114,7 @@
                         <p class="text-black/70">Transform your ingredients into delicious meals with the power of artificial intelligence. Get personalized recipes, cooking tips, and meal plans instantly.
                         </p>
                     </div>
-                    <a class="inline-block shadow-lg bg-black text-white p-2 rounded-xl font-semibold mt-5" href="">Generate Your Recipe</a>
+                    <a class="heartbeat inline-block shadow-lg bg-black text-white p-2 rounded-xl font-semibold mt-5" href="">Generate Your Recipe!</a>
                 </div>
             </section>
 		</div>
