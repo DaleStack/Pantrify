@@ -50,11 +50,35 @@
     <div class="bg-gray-100 lg:w-120 p-4 rounded-2xl my-2 swing-in-top-fwd">
       <p class="text-black/50">Pantrify AI</p>
       <h2 class="text-xl lg:text-2xl font-bold mb-2">Generated Recipe from the Ingredients</h2>
-      <p class="font-semibold">{{ recipe|linebreaksbr|safe }}</p>
+      <p id="recipeText" class="font-semibold whitespace-pre-line"></p>
     </div>
   {% endif %}
 </div>
 
 {% include "chat/const/form.html" %}
 
+<script>
+  // Typewriter effect function
+  function typeWriterEffect(text, elementId, speed = 10) {
+    const el = document.getElementById(elementId);
+    let index = 0;
+    el.textContent = "";
+
+    const interval = setInterval(() => {
+      el.textContent += text.charAt(index);
+      index++;
+      if (index === text.length) {
+        clearInterval(interval);
+      }
+    }, speed);
+  }
+
+  // Call this function after the page loads with the rendered recipe
+  window.addEventListener("DOMContentLoaded", () => {
+    const recipe = `{{ recipe|escapejs }}`; // Escaped to prevent JS breakage
+    if (recipe.trim()) {
+      typeWriterEffect(recipe, "recipeText");
+    }
+  });
+</script>
 {% endblock %}

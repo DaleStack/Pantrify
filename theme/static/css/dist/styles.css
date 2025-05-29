@@ -407,6 +407,9 @@
     --tw-tracking: var(--tracking-normal);
     letter-spacing: var(--tracking-normal);
   }
+  .whitespace-pre-line {
+    white-space: pre-line;
+  }
   .text-black\/50 {
     color: color-mix(in srgb, #000 50%, transparent);
   }

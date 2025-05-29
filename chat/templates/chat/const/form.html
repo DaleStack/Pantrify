@@ -68,8 +68,6 @@
 
 <div class="h-screen flex flex-col justify-end">
   <div class="w-full fixed bottom-0 py-4 px-2 lg:px-80 z-50 slide-in-blurred-bottom">
-    <div id="statusMessage" class="text-center text-gray-600 font-medium pb-2 hidden"></div>
-
     <form method="POST" class="flex gap-2 items-center border border-black/30 rounded-full justify-between px-2 py-2 shadow-md bg-white">
       {% csrf_token %}
       <textarea id="ingredientsInput" class="rounded-2xl p-2 overflow-y-auto h-12 focus:outline-none w-full resize-none max-h-40" name="ingredients" rows="5" cols="40" placeholder="Enter ingredients..."></textarea>
@@ -90,7 +88,7 @@
   const button = document.getElementById("submitButton");
   const sendIcon = document.getElementById("sendIcon");
   const loadingIcon = document.getElementById("loadingIcon");
-  const statusMessage = document.getElementById("statusMessage");
+
 
   // Enable/disable submit button based on input
   textarea.addEventListener("input", () => {
@@ -102,21 +100,6 @@
     button.disabled = textarea.value.trim() === "";
   });
 
-  function typeWriterEffect(text, element, speed = 50) {
-    let index = 0;
-    if (!element.classList.contains("typewriter")) {
-      element.classList.add("typewriter");
-    }
-    element.textContent = "";
-
-    const typing = setInterval(() => {
-      element.textContent += text.charAt(index);
-      index++;
-      if (index === text.length) {
-        clearInterval(typing);
-      }
-    }, speed);
-  }
 
   // On form submit
   const form = button.closest("form");
@@ -124,7 +107,5 @@
     button.disabled = true;
     sendIcon.classList.add("hidden");
     loadingIcon.classList.remove("hidden");
-    statusMessage.classList.remove("hidden");
-    typeWriterEffect("Generating Recipe. Please Wait.", statusMessage);
   });
 </script>
